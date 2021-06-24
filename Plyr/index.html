@@ -16,6 +16,7 @@
                 clickToPlay: false
             });
             player.forward(1);
+            player.muted = true;
             player.play();
             player.toggleControls(false);
             player.on('ended', function() {
