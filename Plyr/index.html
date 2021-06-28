@@ -2,31 +2,48 @@
     <head>
         <title>Plyr</title>
         <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+        <style>
+            body {
+                width: 100%;
+            }
+
+            #container {
+                display: flex;
+                justify-content: center;
+                height: 320px;
+            }
+        </style>
     </head>
     <body>
-        <video id="player" playsinline controls>
-        <source src="https://cci-mtp.s3.amazonaws.com/Fish_W_FDSA_NO.mp4" type="video/mp4" />
-        </video>
+        <div id="container">
+            <video id="player" playsinline controls>
+                <source src="https://cci-mtp.s3.amazonaws.com/Fish_W_FDSA_NO.mp4" type="video/mp4" />
+            </video>
+        </div>
+
         <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
         <script>
-            const player = new Plyr('#player', {
-                // autoplay: true,
-                controls: ['progress'],
-                keyboard: { focused: false, global: false },
-                clickToPlay: false
-            });
-            player.forward(1);
-            player.muted = true;
-            player.play();
-            player.toggleControls(false);
-            player.on('ended', function() {
-                player.destroy();
-                player = new Plyr('#player', {
-                    controls: [],
+            window.addEventListener("load", function () {
+                const player = new Plyr('#player', {
+                    // autoplay: true,
+                    controls: ['progress'],
                     keyboard: { focused: false, global: false },
                     clickToPlay: false
                 });
-            });
+                document.getElementById("container").style.height = document.getElementById("player").videoHeight;
+                player.forward(1);
+                player.muted = true;
+                player.play();
+                player.toggleControls(false);
+                player.on('ended', function() {
+                    player.destroy();
+                    player = new Plyr('#player', {
+                        controls: [],
+                        keyboard: { focused: false, global: false },
+                        clickToPlay: false
+                    });
+                });
+        });
         </script>
     </body>
 </html>
